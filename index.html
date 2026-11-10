@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kendi Yolum</title>
+  <meta name="theme-color" content="#191918">
+  <meta name="description" content="İşimi yap. Kendimi koru. Kendi geleceğimi kur.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23191918'/%3E%3Cpath d='M9 24 L16 8 L23 24' fill='none' stroke='%23c8a170' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <!-- Telefona kurulum (ana ekrana ekleme) -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Kendi Yolum">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a href="#/" class="brand">KENDİ YOLUM</a>
+        <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menü</button>
+        <nav id="nav" aria-label="Ana menü">
+          <a href="#/" data-nav="">Ana sayfa</a>
+          <a href="#/gunluk" data-nav="gunluk">Günlük</a>
+          <a href="#/hafta" data-nav="hafta">Haftalık</a>
+          <a href="#/ay" data-nav="ay">Aylık</a>
+          <a href="#/projeler" data-nav="projeler">Projeler</a>
+          <a href="#/ilkeler" data-nav="ilkeler">İlkeler</a>
+          <a href="#/kartlar" data-nav="kartlar">Kartlar</a>
+          <a href="#/yedek" data-nav="yedek">Yedekleme</a>
+        </nav>
+      </div>
+    </header>
+
+    <div id="storageWarning" class="wrap" hidden>
+      <div class="notice warn">Tarayıcı depolamasına yazılamıyor. Bu oturumdaki kayıtlar sayfa kapanınca kaybolabilir. Lütfen <a href="#/yedek">yedek al</a>.</div>
+    </div>
+
+    <main id="main" class="wrap" tabindex="-1"></main>
+
+    <footer class="app-footer wrap">
+      Kayıtların yalnızca bu tarayıcıda saklanır. · <a href="#/yedek">Yedekleme</a>
+    </footer>
+  </div>
+
+  <!-- Yazdırılacak kartlar burada oluşturulur; yalnızca baskıda görünür. -->
+  <div id="print-area"></div>
+
+  <noscript><p style="padding:20px">Kendi Yolum'un çalışması için JavaScript gerekir.</p></noscript>
+  <script src="app.js"></script>
+</body>
+</html>
