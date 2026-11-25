@@ -22,6 +22,14 @@
     { t: 'Disinhibition (ketlenmenin azalması).', d: 'Kişinin davranışlarını kontrol altında tutmasını sağlayan mekanizmaların zayıflamasıdır. Alkol gibi etkenlerle görülebilir. Ancak bir insanın neden böyle davrandığını tek başına açıklamaz.' }
   ];
   const CORE = 'Kendi davranışlarımdan sorumluyum; başkalarının davranışlarından değil. Kendime de başkalarına gösterdiğim anlayışı göstermeliyim.';
+  const BOUNDARIES = [
+    { t: 'Her ihtiyaca koşma.', d: 'Birinin sorununu çözebilecek olman, çözmek zorunda olduğun anlamına gelmez.' },
+    { t: 'İlk adımı hep sen atma.', d: 'İlişkinin iletişim ve yakınlık sorumluluğunu paylaş.' },
+    { t: 'Fazladan fedakârlığı alışkanlığa dönüştürme.', d: 'Her seferinde kendi zamanından ve imkânlarından vazgeçme.' },
+    { t: 'Kırgınlığını biriktirme.', d: 'Rahatsız olduğun davranışı erkenden ve sakin biçimde dile getir.' },
+    { t: 'İnsanların sana davranışına göre yakınlığını ayarla.', d: 'Bunu ceza olarak değil, kendi sınırını korumak için yap.' }
+  ];
+  const BOUNDARIES_CORE = 'Cömertliğimden vazgeçmeyeceğim ama onu sınırsız erişilebilirliğe dönüştürmeyeceğim.';
   const REMEMBER ='İyi niyetimi koruyacağım ama kendimi ihmal etmeyeceğim. Her fırsata yetişmek, her sorunu çözmek ve herkes tarafından anlaşılmak zorunda değilim.';
   const SLOGAN = 'İşimi yap. Kendimi koru. Kendi geleceğimi kur.';
 
@@ -394,7 +402,7 @@
         <section class="panel">
           <div class="panel-head"><h2>İlkelerim</h2><a href="#/ilkeler">Tamamı →</a></div>
           <ol class="mini-principles">${PRINCIPLES.map((p, i) => `<li><a href="#/ilkeler/${i + 1}">${esc(p.t)}</a></li>`).join('')}</ol>
-          <p class="small" style="margin:12px 0 0"><a href="#/ilkeler/hatirlatmalar">Kendime hatırlatmalar →</a></p>
+          <p class="small" style="margin:12px 0 0"><a href="#/ilkeler/hatirlatmalar">Kendime hatırlatmalar →</a> · <a href="#/ilkeler/sinirlar">İlişkilerde sınırlarım →</a></p>
         </section>
         <section class="panel">
           <h2>İlerleme</h2>
@@ -432,11 +440,19 @@
         <strong>BU NOTLARIN MERKEZİ:</strong>
         <p>${esc(CORE)}</p>
       </div>
+      <h2 id="sinirlar" style="margin-top:36px">İlişkilerde sınırlarım</h2>
+      <ol class="principles reminders">
+        ${BOUNDARIES.map((p) => `<li><div><h3>${esc(p.t)}</h3><p>${esc(p.d)}</p></div></li>`).join('')}
+      </ol>
+      <div class="remember">
+        <strong>İLKE:</strong>
+        <p>${esc(BOUNDARIES_CORE)}</p>
+      </div>
       <p class="muted small" style="margin-top:20px">Bu ilkelerin cebe sığan hâlleri için <a href="#/kartlar">kişisel kartlara</a> bakabilirsin.</p>`;
     return {
       html, title: 'İlkeler',
       bind() {
-        if (focus) { const el = focus === -1 ? $('#hatirlatmalar') : $('#ilke-' + focus); if (el) el.scrollIntoView({ block: 'start' }); }
+        if (focus) { const el = focus === -1 ? $('#hatirlatmalar') : focus === -2 ? $('#sinirlar') : $('#ilke-' + focus); if (el) el.scrollIntoView({ block: 'start' }); }
       },
       keepScroll: !!focus
     };
@@ -1109,6 +1125,7 @@
       case undefined: return viewHome();
       case 'ilkeler': {
         if (b === 'hatirlatmalar') return viewPrinciples(-1);
+        if (b === 'sinirlar') return viewPrinciples(-2);
         const n = Number(b);
         return viewPrinciples(n >= 1 && n <= 5 ? n : 0);
       }
