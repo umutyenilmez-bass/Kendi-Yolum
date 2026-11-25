@@ -1,7 +1,7 @@
 /* Kendi Yolum — çevrimdışı çalışma.
    Uygulama dosyalarını telefonda saklar; internet yokken de açılır.
    Dosyalar değiştiğinde VERSION'ı artır: yeni sürüm bir sonraki açılışta devreye girer. */
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = 'kendi-yolum-' + VERSION;
 const FILES = [
   './',

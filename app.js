@@ -13,7 +13,16 @@
     { t: 'Emeğimin karşılığını alırım.', d: 'İşimi iyi yaparım, profesyonel ilişkilerimi korurum. Gereksiz mücadelelere girmem.' },
     { t: 'Asıl yatırımım kendime.', d: 'Zamanımı, enerjimi, bilgi ve deneyimimi kendi müziğime, projelerime ve geleceğime aktarırım.' }
   ];
-  const REMEMBER = 'İyi niyetimi koruyacağım ama kendimi ihmal etmeyeceğim. Her fırsata yetişmek, her sorunu çözmek ve herkes tarafından anlaşılmak zorunda değilim.';
+  // Beş ilkeden ayrı: ilkelerin pratikte nasıl uygulanacağına dair kişisel notlar.
+  const REMINDERS = [
+    { t: 'Anlamak zorunda değilim.', d: 'Bir insanın davranışının yanlış olduğunu görebilmek için neden böyle davrandığını tamamen çözmem gerekmez. Onun psikolojik durumunu anlamak benim sorumluluğum değil.' },
+    { t: 'Psikolojik mesafe.', d: 'İnsanları umursamamak değildir. Başkalarının davranışlarını kendi değerimin, huzurumun ve özsaygımın belirleyicisi hâline getirmemektir.' },
+    { t: 'Öz sorumluluk ve öz şefkat.', d: 'Hatalı davranışımı düzeltmek, bütün sorunun sorumluluğunu üstlenmek anlamına gelmez. Üslubum için özür dileyebilirim ama haklı olduğum konudan vazgeçmek zorunda değilim.' },
+    { t: 'Gerilime dayanabilmek.', d: 'Herkesle iyi geçinmek, herkes tarafından anlaşılmak veya her gerginliği hemen çözmek zorunda değilim. Bazen karşı tarafın hoşnutsuzluğuna dayanmalıyım.' },
+    { t: 'Disinhibition (ketlenmenin azalması).', d: 'Kişinin davranışlarını kontrol altında tutmasını sağlayan mekanizmaların zayıflamasıdır. Alkol gibi etkenlerle görülebilir. Ancak bir insanın neden böyle davrandığını tek başına açıklamaz.' }
+  ];
+  const CORE = 'Kendi davranışlarımdan sorumluyum; başkalarının davranışlarından değil. Kendime de başkalarına gösterdiğim anlayışı göstermeliyim.';
+  const REMEMBER ='İyi niyetimi koruyacağım ama kendimi ihmal etmeyeceğim. Her fırsata yetişmek, her sorunu çözmek ve herkes tarafından anlaşılmak zorunda değilim.';
   const SLOGAN = 'İşimi yap. Kendimi koru. Kendi geleceğimi kur.';
 
   const CARDS = [
@@ -385,6 +394,7 @@
         <section class="panel">
           <div class="panel-head"><h2>İlkelerim</h2><a href="#/ilkeler">Tamamı →</a></div>
           <ol class="mini-principles">${PRINCIPLES.map((p, i) => `<li><a href="#/ilkeler/${i + 1}">${esc(p.t)}</a></li>`).join('')}</ol>
+          <p class="small" style="margin:12px 0 0"><a href="#/ilkeler/hatirlatmalar">Kendime hatırlatmalar →</a></p>
         </section>
         <section class="panel">
           <h2>İlerleme</h2>
@@ -414,11 +424,19 @@
         <strong>UNUTMA:</strong>
         <p>${esc(REMEMBER)}</p>
       </div>
+      <h2 id="hatirlatmalar" style="margin-top:36px">Kendime hatırlatmalar</h2>
+      <ol class="principles reminders">
+        ${REMINDERS.map((p) => `<li><div><h3>${esc(p.t)}</h3><p>${esc(p.d)}</p></div></li>`).join('')}
+      </ol>
+      <div class="remember">
+        <strong>BU NOTLARIN MERKEZİ:</strong>
+        <p>${esc(CORE)}</p>
+      </div>
       <p class="muted small" style="margin-top:20px">Bu ilkelerin cebe sığan hâlleri için <a href="#/kartlar">kişisel kartlara</a> bakabilirsin.</p>`;
     return {
       html, title: 'İlkeler',
       bind() {
-        if (focus) { const el = $('#ilke-' + focus); if (el) el.scrollIntoView({ block: 'start' }); }
+        if (focus) { const el = focus === -1 ? $('#hatirlatmalar') : $('#ilke-' + focus); if (el) el.scrollIntoView({ block: 'start' }); }
       },
       keepScroll: !!focus
     };
@@ -1090,6 +1108,7 @@
     switch (a) {
       case undefined: return viewHome();
       case 'ilkeler': {
+        if (b === 'hatirlatmalar') return viewPrinciples(-1);
         const n = Number(b);
         return viewPrinciples(n >= 1 && n <= 5 ? n : 0);
       }
